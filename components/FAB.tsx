@@ -3,7 +3,8 @@ import { Pressable, StyleSheet, Text } from 'react-native'
 
 interface Props {
   label: string
-  position?: 'left' | 'right'
+  position?: 'left' | 'right' | 'center'
+  bottomOffset?: number
   onPress?: () => void
   onLongPress?: () => void
 }
@@ -13,18 +14,21 @@ export default function FAB({
   onPress,
   onLongPress,
   position = 'right',
+  bottomOffset = 20
 }: Props) {
   return (
     <Pressable
       style={({ pressed }) => [
         styles.floatingButton,
-        position === 'right' ? styles.positionRight : styles.positionLeft,
-        pressed ? { opacity: 0.7 } : { opacity: 1 },
+        position === 'left' && { left: 20, bottom: bottomOffset },
+        position === 'right' && { right: 20, bottom: bottomOffset },
+        position === 'center' && { alignSelf: 'center', bottom: bottomOffset },
+        pressed && styles.pressed
       ]}
       onPress={onPress}
       onLongPress={onLongPress}
     >
-      <Text style={{ color: 'white', fontSize: 20 }}>{label}</Text>
+      <Text style={styles.text}>{label}</Text>
     </Pressable>
   )
 }
@@ -32,23 +36,17 @@ export default function FAB({
 const styles = StyleSheet.create({
   floatingButton: {
     position: 'absolute',
-    bottom: 20,
-    backgroundColor: '#65668F',
+    backgroundColor: '#1ba0f9',
     padding: 20,
     borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
-  positionRight: {
-    right: 20,
+  text: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold'
   },
-  positionLeft: {
-    left: 20,
-  },
+  pressed: {
+    opacity: 0.9
+  }
 })
