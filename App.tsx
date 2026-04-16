@@ -35,8 +35,8 @@ export default function App() {
       <Text style={styles.title}>Marcador del Juego</Text>
 
       <View style={styles.scoreContainer}>
-        <Text style={[styles.score, { color: getColor('A') }]}>A: {teamA}</Text>
         <Text style={[styles.score, { color: getColor('B') }]}>B: {teamB}</Text>
+        <Text style={[styles.score, { color: getColor('A') }]}>A: {teamA}</Text>
       </View>
 
       <FAB
